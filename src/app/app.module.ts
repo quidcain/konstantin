@@ -20,6 +20,7 @@ import { TestComponent } from './main/test/test.component';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginModule } from 'app/main/login/login.module';
 import { RegisterModule } from 'app/main/register/register.module';
+import { AuthService } from './auth.service';
 
 @NgModule({
     declarations: [
@@ -55,7 +56,11 @@ import { RegisterModule } from 'app/main/register/register.module';
     ],
     bootstrap   : [
         AppComponent
-    ]
+    ],
+
+    /*providers: [
+        AuthService
+    ]*/
 })
 export class AppModule
 {

@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/internal/operators';
 
 import { fuseAnimations } from '@fuse/animations';
+import { AuthService } from '../../auth.service';
 
 @Component({
     selector   : 'register',
@@ -19,10 +20,15 @@ export class RegisterComponent implements OnInit, OnDestroy
     private _unsubscribeAll: Subject<any>;
 
     constructor(
-        private _formBuilder: FormBuilder
+        private _formBuilder: FormBuilder,
+        private authService: AuthService
     ) {
         // Set the private defaults
         this._unsubscribeAll = new Subject();
+    }
+
+    register() {
+        this.authService.attemptRegister();
     }
 
     // -----------------------------------------------------------------------------------------------------

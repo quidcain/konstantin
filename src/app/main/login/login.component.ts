@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations';
+import { AuthService } from '../../auth.service';
 
 @Component({
     selector   : 'login',
@@ -20,8 +21,13 @@ export class LoginComponent implements OnInit
      * @param {FormBuilder} _formBuilder
      */
     constructor(
-        private _formBuilder: FormBuilder
+        private _formBuilder: FormBuilder,
+        private authService: AuthService
     ) { }
+
+    login() {
+        this.authService.attemptLogin();
+    }
 
     // -----------------------------------------------------------------------------------------------------
     // @ Lifecycle hooks
