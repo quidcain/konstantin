@@ -19,6 +19,7 @@ import { SampleModule } from 'app/main/sample/sample.module';
 import { TestComponent } from './main/test/test.component';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginModule } from 'app/main/login/login.module';
+import { RegisterModule } from 'app/main/register/register.module';
 
 @NgModule({
     declarations: [
@@ -49,7 +50,8 @@ import { LoginModule } from 'app/main/login/login.module';
         LayoutModule,
         SampleModule,
         AppRoutingModule,
-        LoginModule
+        LoginModule,
+        RegisterModule
     ],
     bootstrap   : [
         AppComponent
