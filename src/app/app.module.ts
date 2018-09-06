@@ -17,17 +17,17 @@ import { fuseConfig } from 'app/fuse-config';
 import { AppComponent } from 'app/app.component';
 import { LayoutModule } from 'app/layout/layout.module';
 import { SampleModule } from 'app/main/sample/sample.module';
+import { TestComponent } from './main/test/test.component';
 
 const appRoutes: Routes = [
-    {
-        path      : '**',
-        redirectTo: 'sample'
-    }
+    { path: '', redirectTo: 'sample', pathMatch: 'full' },
+    { path: 'test', component: TestComponent }
 ];
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        TestComponent
     ],
     imports     : [
         BrowserModule,
