@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { fuseAnimations } from '@fuse/animations';
 import { AuthService } from '../auth.service';
+import { TokenStorage } from '../token.storage';
 
 @Component({
     selector   : 'login',
@@ -21,11 +22,19 @@ export class LoginComponent implements OnInit
      */
     constructor(
         private _formBuilder: FormBuilder,
-        private authService: AuthService
+        private authService: AuthService,
+        private tokenStorage: TokenStorage
     ) { }
 
-    login() {
-        this.authService.attemptLogin();
+    login(): void {
+      if (this.loginForm.dirty && this.loginForm.valid) {
+        this.authService.attemptLogin(this.loginForm.value.username, this.loginForm.value.password).subscribe(
+          data => {
+            this.tokenStorage.saveToken(data.token);
+            alert('Successfuly logged in!');
+          }
+        );
+      }
     }
 
     // -----------------------------------------------------------------------------------------------------
