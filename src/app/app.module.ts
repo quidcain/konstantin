@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatButtonModule, MatIconModule } from '@angular/material';
@@ -20,7 +20,9 @@ import { TestComponent } from './main/test/test.component';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginModule } from 'app/main/login/login.module';
 import { RegisterModule } from 'app/main/register/register.module';
-import { AuthService } from './auth.service';
+import { AuthService } from './main/auth.service';
+import { TokenStorage } from './main/token.storage';
+import { JwtInterceptor } from './main/jwt.interceptor';
 
 @NgModule({
     declarations: [
@@ -58,9 +60,11 @@ import { AuthService } from './auth.service';
         AppComponent
     ],
 
-    /*providers: [
-        AuthService
-    ]*/
+    providers: [
+        AuthService,
+        TokenStorage,
+        { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    ]
 })
 export class AppModule
 {

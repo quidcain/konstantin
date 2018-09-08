@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/internal/operators';
 
 import { fuseAnimations } from '@fuse/animations';
-import { AuthService } from '../../auth.service';
+import { AuthService } from '../auth.service';
 
 @Component({
     selector   : 'register',
