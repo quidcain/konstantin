@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -23,6 +23,7 @@ import { RegisterModule } from 'app/main/register/register.module';
 import { AuthService } from './main/auth.service';
 import { TokenStorage } from './main/token.storage';
 import { JwtInterceptor } from './main/jwt.interceptor';
+import { ErrorHandlerImpl } from './main/error.handler';
 
 @NgModule({
     declarations: [
@@ -59,11 +60,11 @@ import { JwtInterceptor } from './main/jwt.interceptor';
     bootstrap   : [
         AppComponent
     ],
-
     providers: [
         AuthService,
         TokenStorage,
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+        { provide: ErrorHandler, useClass: ErrorHandlerImpl}
     ]
 })
 export class AppModule
