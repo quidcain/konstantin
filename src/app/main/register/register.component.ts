@@ -5,6 +5,7 @@ import { takeUntil } from 'rxjs/internal/operators';
 
 import { fuseAnimations } from '@fuse/animations';
 import { AuthService } from '../auth.service';
+import { TokenStorage } from '../token.storage';
 
 @Component({
     selector   : 'register',
@@ -21,14 +22,25 @@ export class RegisterComponent implements OnInit, OnDestroy
 
     constructor(
         private _formBuilder: FormBuilder,
-        private authService: AuthService
+        private authService: AuthService,
+        private tokenStorage: TokenStorage
     ) {
         // Set the private defaults
         this._unsubscribeAll = new Subject();
     }
 
-    register() {
-        this.authService.attemptRegister();
+    register(): void {
+        if (this.registerForm.dirty && this.registerForm.valid) {
+          const {email, name, password} = this.registerForm.value;
+          this.authService.attemptRegister(email, name, password).subscribe(
+            data => {
+              if (data && data.token) {
+                this.tokenStorage.saveToken(data.token);
+              }
+              alert('Successfuly registered!');
+            }
+          );
+        }
     }
 
     // -----------------------------------------------------------------------------------------------------
