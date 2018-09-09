@@ -24,6 +24,7 @@ import { AuthService } from './main/auth.service';
 import { TokenStorage } from './main/token.storage';
 import { JwtInterceptor } from './main/jwt.interceptor';
 import { ErrorHandlerImpl } from './main/error.handler';
+import { FakeBackendInterceptor } from './main/fake-backend.interceptor';
 
 @NgModule({
     declarations: [
@@ -64,7 +65,8 @@ import { ErrorHandlerImpl } from './main/error.handler';
         AuthService,
         TokenStorage,
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-        { provide: ErrorHandler, useClass: ErrorHandlerImpl}
+        { provide: ErrorHandler, useClass: ErrorHandlerImpl},
+        { provide: HTTP_INTERCEPTORS, useClass: FakeBackendInterceptor, multi: true }
     ]
 })
 export class AppModule

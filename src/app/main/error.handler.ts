@@ -19,6 +19,8 @@ export class ErrorHandlerImpl implements ErrorHandler {
       } else if (error.status === 404) {
         console.log('404');
       }
+    } else if (error.valueOf() === 401) {
+      alert('Unauthorized!');
     }
   }
 }

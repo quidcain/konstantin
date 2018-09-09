@@ -30,7 +30,9 @@ export class LoginComponent implements OnInit
       if (this.loginForm.dirty && this.loginForm.valid) {
         this.authService.attemptLogin(this.loginForm.value.email, this.loginForm.value.password).subscribe(
           data => {
-            this.tokenStorage.saveToken(data.token);
+            if (data && data.token) {
+              this.tokenStorage.saveToken(data.token);
+            }
             alert('Successfuly logged in!');
           }
         );
