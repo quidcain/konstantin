@@ -41,6 +41,7 @@
     "@swimlane/ngx-datatable": "13.0.1",
     "@swimlane/ngx-dnd": "4.0.0",
     "@types/prismjs": "1.9.0",
+    "angular-6-social-login": "1.1.1",
     "angular-calendar": "0.25.2",
     "angular-in-memory-web-api": "0.6.0",
     "chart.js": "2.7.2",

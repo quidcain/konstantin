@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { fuseAnimations } from '@fuse/animations';
 import { AuthService } from '../auth.service';
 import { TokenStorage } from '../token.storage';
+import { AuthService as SocialAuthService, FacebookLoginProvider, GoogleLoginProvider } from 'angular-6-social-login';
 
 @Component({
     selector   : 'login',
@@ -23,6 +24,7 @@ export class LoginComponent implements OnInit
     constructor(
         private _formBuilder: FormBuilder,
         private authService: AuthService,
+        private socialAuthService: SocialAuthService,
         private tokenStorage: TokenStorage
     ) { }
 
@@ -37,6 +39,13 @@ export class LoginComponent implements OnInit
           }
         );
       }
+    }
+
+    socialLogin(socialPlatform: string): void {
+      const socialPlatformProvider = socialPlatform === 'google' ? GoogleLoginProvider.PROVIDER_ID 
+        : FacebookLoginProvider.PROVIDER_ID;
+      this.socialAuthService.signIn(socialPlatformProvider)
+        .then( socialUser => console.log(socialUser));
     }
 
     // -----------------------------------------------------------------------------------------------------

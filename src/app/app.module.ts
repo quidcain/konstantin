@@ -25,6 +25,23 @@ import { TokenStorage } from './main/token.storage';
 import { JwtInterceptor } from './main/jwt.interceptor';
 import { ErrorHandlerImpl } from './main/error.handler';
 import { FakeBackendInterceptor } from './main/fake-backend.interceptor';
+import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider, GoogleLoginProvider } from 'angular-6-social-login';
+
+export function getAuthServiceConfigs(): AuthServiceConfig {
+  const config = new AuthServiceConfig(
+      [
+        {
+          id: FacebookLoginProvider.PROVIDER_ID,
+          provider: new FacebookLoginProvider('Your-Facebook-app-id')
+        },
+        {
+          id: GoogleLoginProvider.PROVIDER_ID,
+          provider: new GoogleLoginProvider('Your-Google-Client-Id')
+        }
+      ]
+  );
+  return config;
+}
 
 @NgModule({
     declarations: [
@@ -56,7 +73,8 @@ import { FakeBackendInterceptor } from './main/fake-backend.interceptor';
         SampleModule,
         AppRoutingModule,
         LoginModule,
-        RegisterModule
+        RegisterModule,
+        SocialLoginModule
     ],
     bootstrap   : [
         AppComponent
@@ -66,7 +84,8 @@ import { FakeBackendInterceptor } from './main/fake-backend.interceptor';
         TokenStorage,
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: ErrorHandler, useClass: ErrorHandlerImpl},
-        { provide: HTTP_INTERCEPTORS, useClass: FakeBackendInterceptor, multi: true }
+        { provide: HTTP_INTERCEPTORS, useClass: FakeBackendInterceptor, multi: true },
+        { provide: AuthServiceConfig, useFactory: getAuthServiceConfigs }
     ]
 })
 export class AppModule
